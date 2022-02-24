@@ -12,8 +12,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import in.sts.webappgradle.dao.SignUpDao;
-import in.sts.webappgradle.model.SignUp;
+
+import in.sts.webappgradle.dao.UsersDao;
+import in.sts.webappgradle.model.Users;
 
 
 @WebServlet("/register")
@@ -22,6 +23,7 @@ public class SignUpServlet extends HttpServlet {
 
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 
 	}
 
@@ -30,28 +32,46 @@ public class SignUpServlet extends HttpServlet {
 
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
-
-		String username=request.getParameter("username");
-
+		ArrayList<Users> usersDetails= UsersDao.getAllUses();
+		String firstname=request.getParameter("firstname");
+		String lastname=request.getParameter("lastname");
+		int age=Integer.parseInt(request.getParameter("age"));
 		String password=request.getParameter("password");
 		String email=request.getParameter("email");
 		BigDecimal phoneno=new BigDecimal(request.getParameter("phoneno"));
 		String location=request.getParameter("location");
 		BigDecimal pincode=new BigDecimal(request.getParameter("pincode"));
+		boolean uniqueMail=true;
+		
+		for(Users users:usersDetails) {
+			if(users.getEmail().equals(email)) {
 
-		SignUp signupModel=new SignUp();
+				out.println("<script type=\"text/javascript\">");
+			       out.println("window.alert('Email Already Exist!!');");
+			       out.println("window.location.replace('" +"signup.jsp" + "');");
+			       out.println("</script>");
+				 uniqueMail=false;
+					
+			}
+			
+		}
+		
+		if(uniqueMail==true) {
+		Users usersModel=new Users();
 
-		signupModel.setUsername(username);
-		signupModel.setEmail(email);
-		signupModel.setPassword(password);
-		signupModel.setPhoneno(phoneno);
-		signupModel.setLocation(location);
-		signupModel.setPincode(pincode);
+		usersModel.setUsername(firstname);
+		usersModel.setLastname(lastname);
+		usersModel.setAge(age);
+		usersModel.setEmail(email);
+		usersModel.setPassword(password);
+		usersModel.setPhoneno(phoneno);
+		usersModel.setLocation(location);
+		usersModel.setPincode(pincode);
 
-		ArrayList<SignUp> signupList=new ArrayList<SignUp>();
-		signupList.add(signupModel);
+		ArrayList<Users> usersList=new ArrayList<Users>();
+		usersList.add(usersModel);
 
-		SignUpDao.insertToSignUpDao(signupList);
+		UsersDao.insertUser(usersList);
 
 
 		out.println("<div align=\"center\">\r\n"
@@ -62,5 +82,5 @@ public class SignUpServlet extends HttpServlet {
 		RequestDispatcher requestDispatcher=request.getRequestDispatcher("login.jsp");
 		requestDispatcher.include(request, response);
 	}
-
+	}
 }

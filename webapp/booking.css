@@ -9,7 +9,7 @@
 .bookingbody {
 	font-family: "Poppins", sans-serif;
 	background-image: url("trip.jpg");
-	background-size: 100%;
+	background-size: auto;
 }
 
 .content {
@@ -47,11 +47,12 @@ form {
 	flex-direction: column;
 	background: #fff;
 	padding: 2rem;
-	width: 35em;
-	height: 35em;
-	margin-bottom: 1em;
+	width: 30em;
+	height: auto; 
+	margin-bottom : 1em;
 	border-radius: 0.5rem;
 	box-shadow: 0 2px 4px rgb(0 0 0/ 10%), 0 8px 16px rgb(0 0 0/ 10%);
+	margin-bottom: 1em;
 }
 
 form input {

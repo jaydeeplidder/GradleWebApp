@@ -1,18 +1,11 @@
 package in.sts.webappgradle.model;
 
 public class Login {
-	private Booking booking;
+	
 	private int userid;
 	private String username;
 	private String email;
 
-
-	public Booking getBooking() {
-		return booking;
-	}
-	public void setBooking(Booking booking) {
-		this.booking = booking;
-	}
 	public int getUserid() {
 		return userid;
 	}

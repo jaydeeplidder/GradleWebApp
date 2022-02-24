@@ -2,9 +2,12 @@ package in.sts.webappgradle.mysqlconnection;
 
 import java.sql.Connection;
 
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.sql.DataSource;
 
 public class MysqlConnection  {
 
@@ -12,13 +15,11 @@ public class MysqlConnection  {
 	static PreparedStatement ptsmt;
 	public static Connection connectivity() throws Exception {
 
-		Class.forName("com.mysql.jdbc.Driver");
-		String url="jdbc:mysql://localhost:3306/hotel";
-		String user="root";
-		String pass="root";
+		
 
-
-		connect=DriverManager.getConnection(url,user,pass);
+		Context context= new InitialContext();
+		DataSource dataSource= (DataSource)context.lookup("java:comp/env/jdbc/UsersDB");
+		connect=dataSource.getConnection();
 
 		if(connect!=null) {
 

@@ -5,6 +5,11 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
+ <script type="text/javascript">
+        function preventBack() { window.history.forward(); }
+        setTimeout("preventBack()", 0);
+        window.onunload = function () { null };
+    </script>
 </head>
 <body>
 <div align="Center">

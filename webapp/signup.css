@@ -2,13 +2,8 @@
 @charset "ISO-8859-1";
 @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
 
-body {
+.signup {
   font-family: "Poppins", sans-serif;
   background-image: url("beach.jpg");
   background-size:100%;
@@ -22,13 +17,14 @@ body {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -40%);
 }
 
 .flex-div {
   display: flex;
   justify-content: space-evenly;
   align-items: center;
+ 
   
 }
 
@@ -52,8 +48,10 @@ form {
   flex-direction: column;
   background: #fff;
   padding: 2rem;
-  width: 30em;
-  height: 35em;
+  width: 500px;
+    margin-top:2em;
+  height: 590px;
+   margin-bottom:2em;
   border-radius: 0.5rem;
   box-shadow: 0 2px 4px rgb(0 0 0 / 10%), 0 8px 16px rgb(0 0 0 / 10%);
 }
@@ -66,9 +64,6 @@ form input {
   font-size: 1.1rem;
 }
 
-a{
-	padding-bottom: 1em;
-}
 
 form input:focus {
   border: 1.5px solid #1877f2;
@@ -93,7 +88,7 @@ form a {
   text-decoration: none;
   text-align: center;
   font-size: 1rem;
-  padding-top: 0.8rem;
+	margin-bottom:1em;
   color: #1877f2;
 }
 
@@ -103,15 +98,17 @@ form hr {
 }
 
 form .create-account {
+
   outline: none;
   border: none;
   background: #06b909;
-  padding: 0.8rem 1rem;
   border-radius: 0.4rem;
   font-size: 1.1rem;
   color: #fff;
+  width:30%;
+  margin:auto;
   
-  margin: 0 0.5em;
+
 }
 
 form .create-account:hover {
@@ -132,8 +129,8 @@ form .create-account:hover {
   }
 
   form {
-    width: 300px;
-    height: fit-content;
+    width: 500px;
+    height: 700px;
   }
 
   form input {
@@ -199,7 +196,7 @@ form .create-account:hover {
 
 @media (min-width: 769px) and (max-width: 1200px) {
   html {
-    font-size: 60%;
+    font-size: 70%;
   }
 
   .name-content {

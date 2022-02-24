@@ -5,21 +5,16 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
 import org.apache.log4j.Logger;
-
 import in.sts.webappgradle.model.Booking;
-import in.sts.webappgradle.model.Login;
 import in.sts.webappgradle.mysqlconnection.MysqlConnection;
 
 public class BookingDao {
 
 	static int result=0;
 	final static Logger logger =Logger.getLogger(BookingDao.class);
-	public static void bookingDao(ArrayList<Booking> bookingList)
+	public static void saveBooking(ArrayList<Booking> bookingList)
 	{
-
-		Login login = new Login();
 
 		Connection connection=null;
 		PreparedStatement preparedStatement=null;
@@ -42,14 +37,14 @@ public class BookingDao {
 			if(preparedStatement!=null) {
 
 				for(Booking booking:bookingList) {
-					login.setBooking(booking);
-					preparedStatement.setInt(1,LoginDao.getUserId());
-					preparedStatement.setString(2,login.getBooking().getUsername());
-					preparedStatement.setString(3,login.getBooking().getDate());
-					preparedStatement.setString(4, login.getBooking().getLocation());
-					preparedStatement.setString(5,login.getBooking().getHotel());
-					preparedStatement.setInt(6, login.getBooking().getStay());
-					preparedStatement.setInt(7, login.getBooking().getGuest());
+					
+					preparedStatement.setInt(1,booking.getUserid());
+					preparedStatement.setString(2,booking.getUsername());
+					preparedStatement.setString(3,booking.getDate());
+					preparedStatement.setString(4, booking.getLocation());
+					preparedStatement.setString(5,booking.getHotel());
+					preparedStatement.setInt(6, booking.getStay());
+					preparedStatement.setInt(7,booking.getGuest());
 					result=preparedStatement.executeUpdate();
 
 				}
@@ -106,7 +101,7 @@ public class BookingDao {
 					String hotel=result.getString("hotel");
 					int stay=result.getInt("stay");
 					int guest=result.getInt("guest");
-					Booking bookingModel=new Booking(username,date,location,hotel,stay,guest);
+					Booking bookingModel=new Booking(userId,username,date,location,hotel,stay,guest);
 
 					bookingDeatilsList.add(bookingModel);
 
@@ -117,7 +112,7 @@ public class BookingDao {
 			}
 
 
-			logger.info("Details SuccessFully Inserted");
+			logger.info("BookingDetails SuccessFully Fetched");
 
 
 		}
@@ -142,8 +137,60 @@ public class BookingDao {
 
 
 		return bookingDeatilsList;
+		
+
+	}
+	
+	public static Integer getLastId() {
+		Connection connection=null;
+		PreparedStatement preparedStatement=null;
+		ResultSet result;
+		int id=0;
+		try
+		{
 
 
+
+			connection=MysqlConnection.connectivity();
+			String query="SELECT bookingid FROM booking WHERE bookingid = (SELECT MAX(bookingid) FROM booking)";
+			preparedStatement=MysqlConnection.preparedstatement(query);
+
+			if(connection==null) {
+				logger.error("MySQLconnection Not found");
+			}
+			result=preparedStatement.executeQuery();
+			
+			while(result.next()) {
+				id=result.getInt("bookingid");
+				id=id+1;
+				return id;
+			}
+	
+			 if(result!=null) {
+				logger.info("Details SuccessFully Inserted");
+			}
+			logger.info("Details not Inserted");
+
+		}
+		catch(SQLException sqlException) {
+			logger.error("SqlConnection Not found");
+		}
+		catch (Exception exception) {
+			logger.error("Mysqlconnection error found");
+		}
+		finally {
+			try {
+				preparedStatement.close();
+			} catch (SQLException sqlException) {
+				logger.warn("PreparedStatement not closed");
+			}
+			try {
+				connection.close();
+			} catch (SQLException sqlException) {
+				logger.warn("MySqlConnection not closed");
+			}
+		}
+		return id;
 	}
 
 }

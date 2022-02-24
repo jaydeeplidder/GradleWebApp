@@ -22,6 +22,11 @@
 	src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js"
 	integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY"
 	crossorigin="anonymous"></script>
+	<script type="text/javascript">
+        function preventBack() { window.history.forward(); }
+        setTimeout("preventBack()", 0);
+        window.onunload = function () { null };
+    </script>
 </head>
 <body>
 	<div class="wrapper">
@@ -34,6 +39,7 @@
 			<ul class="list-unstyled components">
 
 				<li><a href="home.jsp">Home</a></li>
+				<li><a href="userprofile.jsp">Profile</a></li>
 				<li><a href="booking.jsp">Boooking</a></li>
 				<li><a href="<%=request.getContextPath()%>/booking" method="get">Booking Details</a></li>
 				<li><a href="#">Contact</a></li>
@@ -60,8 +66,8 @@
 					</button>
 
 					<h2 align="center" style="color: Red; font-style: italic;">
-						MakeMyTrip... <a
-							href="http://localhost:8080/WebAppGradle-lib/index.jsp"
+						MakeMyTrip...<img  src="user.png"><a
+							href="<%=request.getContextPath()%>/logout"
 							style="text-decoration: none">
 							<button type="button" class="btn btn-danger">Logout</button>
 						</a>

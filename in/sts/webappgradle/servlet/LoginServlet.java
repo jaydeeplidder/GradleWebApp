@@ -1,9 +1,8 @@
 package in.sts.webappgradle.servlet;
 
-
 import java.io.IOException;
 import java.io.PrintWriter;
-
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,13 +11,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
-
-import in.sts.webappgradle.dao.LoginDao;
-
+import in.sts.webappgradle.dao.UsersDao;
 import in.sts.webappgradle.model.Login;
+import in.sts.webappgradle.model.Users;
 
 
 @WebServlet("/login")
@@ -44,17 +41,22 @@ public class LoginServlet extends HttpServlet {
 			login.setUsername(username);
 			login.setPassword(password);
 
-			LoginDao loginDao=new LoginDao();
+			UsersDao usersDao=new UsersDao();
 
 			HttpSession session = request.getSession();
 
 
-			int success=loginDao.loginDao(username,password);
-
-			if(success!=0)
+			ArrayList<Users> userDetails=usersDao.loginUser(username,password);// return the userId;
+			int userId=0;
+			for(Users user: userDetails) {
+				userId=user.getUserid();
+			}
+			if(userId!=0)
 			{
 				session.setAttribute("user", username);  
-				session.setAttribute("userid", success);
+				session.setAttribute("userid",userId);
+				session.setAttribute("userdetails",userDetails);
+				
 				RequestDispatcher requestDispatcher=request.getRequestDispatcher("home.jsp");  
 				requestDispatcher.forward(request, response);  
 

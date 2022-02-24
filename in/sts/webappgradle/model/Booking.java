@@ -2,7 +2,7 @@ package in.sts.webappgradle.model;
 
 public class Booking {
 
-
+	private int userid;
 	private String username;
 	private String date;
 	private String location;
@@ -10,6 +10,13 @@ public class Booking {
 	private int stay;
 	private int guest;
 
+	
+	public int getUserid() {
+		return userid;
+	}
+	public void setUserid(int userid) {
+		this.userid = userid;
+	}
 	public String getUsername() {
 		return username;
 	}
@@ -53,8 +60,9 @@ public class Booking {
 	public Booking() {
 		super();
 	}
-	public Booking(String username, String date, String location, String hotel, int stay, int guest) {
+	public Booking(int userid,String username, String date, String location, String hotel, int stay, int guest) {
 
+		this.userid = userid;
 		this.username = username;
 		this.date = date;
 		this.location = location;

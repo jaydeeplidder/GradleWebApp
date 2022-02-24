@@ -22,6 +22,7 @@
 			<th>Hotel</th>
 			<th>Stays</th>
 			<th>Guest</th>
+			<th>Action</th>
 
 		</tr>
 		<%
@@ -38,6 +39,8 @@
 			<td><%=booking.getHotel()%></td>
 			<td><%=booking.getStay()%></td>
 			<td><%=booking.getGuest()%></td>
+			<td><button  type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#exampleModalCenter">Edit</button>
+			<button  type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#exampleModalCenter">Delete</button></td>
 		<tr>
 			<%
 			}
